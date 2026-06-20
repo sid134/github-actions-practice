@@ -1,5 +1,5 @@
 # DevBoard — Fundamentals (UI only)
-FROM node:22-alpine
+FROM node:20-alpine
 
 # Create a dedicated non-root user. Running as root inside a container is a
 RUN addgroup -S app && adduser -S -G app app
