@@ -1,24 +1,26 @@
 # Workflow
-# Should Have Name
-# Jobs
-# Should be inside the workflow
-# Steps
-# Should be inside the job
-# Actions
-# Should be inside the Steps
-
+# Should have name
 name: Hello
 
-# On tells when the workflow should run
-
+# on tells when the workflow should run (Give indentation by tab)
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
+# Jobs
+# Should be inside the workflow
 
-# Job tells what the workflow should do
-
+# Job tells what the workflow should do, there can be one or more jobs hence we write jobs
 jobs:
+  # 1st Job (give indentation)
   say-hello:
+    # Creates an Ephermal container with ubuntu running
     runs-on: ubuntu-latest
+    # That Ephermal container will have steps to execute, hence name those steps and use run: run has the command
     steps:
-      - name: Say hello to everyone
+      - name: Say Hello to everyone
         run: echo "Hello Dosto"
+
+# Steps
+# Should be inside the job
+
+# Actions
+# Should be inside the Steps
