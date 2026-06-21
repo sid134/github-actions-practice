@@ -17,7 +17,7 @@ jobs:
     # That Ephermal container will have steps to execute, hence name those steps and use run: run has the command
     steps:
       - name: Say Hello to everyone
-        run: echo "Hello Dosto"
+        run: echo "Hello Doston"
 
 # Steps
 # Should be inside the job
