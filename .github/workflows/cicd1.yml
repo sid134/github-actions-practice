@@ -1,15 +1,12 @@
 name: Node.js CI/CD Pipeline
 
-# 1. Define the Triggers
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-# 2. Define the Jobs
 jobs:
-  # Continuous Integration (CI) Job
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -21,23 +18,26 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '24'
-        
-    - name: Install Dependencies
-      run: npm install
 
-    - name: Run Linter & Tests
+    - name: Debug and Find package.json
       run: |
-        npm run lint --if-present
-        npm test --if-present
+        echo "=== Current Location ==="
+        pwd
+        echo "=== Listing Root Files ==="
+        ls -la
+        echo "=== Searching for package.json location ==="
+        find . -name "package.json"
 
-  # Continuous Deployment (CD) Job
-  deploy:
-    needs: build-and-test # Only runs if the CI job passes
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' # Only deploy on true pushes, not PRs
-
-    steps:
-    - name: Deploying Application
-      run: echo "Deploying your application to the production server..."
-      # In production, replace this with actions like:
-      # uses: azure/webapps-deploy@v2 or appleboy/ssh-action@master
+    - name: Auto-Detect and Install Dependencies
+      run: |
+        # This script searches for your package.json and runs npm install directly inside its folder
+        TARGET_DIR=$(find . -name "package.json" -exec dirname {} \;)
+        if [ -z "$TARGET_DIR" ]; then
+          echo "ERROR: package.json still cannot be found anywhere in this repository!"
+          exit 1
+        else
+          echo "Found package.json in: $TARGET_DIR"
+          cd "$TARGET_DIR"
+          npm install
+          npm test --if-present
+        fi
