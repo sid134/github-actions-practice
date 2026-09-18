@@ -1,0 +1,9 @@
+{
+  "name": "github-actions-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Success: npm environment is working!\" && exit 0"
+  },
+  "dependencies": {}
+}
